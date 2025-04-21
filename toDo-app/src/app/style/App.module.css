@@ -1,0 +1,5 @@
+.content {
+  background-image: linear-gradient(180deg, #77d4eb 0, #fff);
+  min-height: 100vh;
+  padding: 0 40px;
+}

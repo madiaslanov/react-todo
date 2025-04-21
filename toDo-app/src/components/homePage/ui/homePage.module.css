@@ -1,0 +1,13 @@
+.homePage {
+    justify-content: center;
+    display: flex;
+    margin-right: 111px;
+    flex-direction: column;
+    align-items: center;
+}
+
+.todoList{
+    margin-top: 20px;
+    width: 40%;
+    margin-left: 40px;
+}

@@ -1,0 +1,44 @@
+.headerBox{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.headerBox h1{
+  font-family: "Anton", sans-serif;
+  font-size: 35px;
+  margin: 10px auto auto;
+  padding-top: 20px;
+}
+
+.headerBox button{
+  background-color: #1976d2;
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  cursor: pointer;
+  padding: 10px 15px;
+  font-size: 18px;
+  margin-top: 20px;
+  margin-right: 20px;
+}
+
+.headerDescription {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+  margin-right: 111px;
+}
+.headerDescription p{
+  font-size: 20px;
+  padding: 10px;
+  font-weight: 500;
+  margin: 0;
+}
+.headerDescription span{
+  font-size: 20px;
+  padding: 10px;
+  font-weight: 500;
+  margin: 0;
+}

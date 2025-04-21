@@ -1,6 +1,6 @@
 import {TodoState, TodosType} from "./todosType.ts";
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {getTodosApi, postTodosApi} from "../api";
+import {deleteTodoApi, getTodosApi, postTodosApi, putTodoApi} from "../api";
 
 const initialState: TodoState = {
     todos: []
@@ -29,6 +29,30 @@ export const postTodos = createAsyncThunk<TodosType, string, { rejectValue: stri
         }
     }
 )
+export const deleteTodos = createAsyncThunk<string, string, { rejectValue: string }>(
+    'todos/deleteTodos',
+    async (id, {rejectWithValue}) => {
+        try {
+            await deleteTodoApi(id);
+            return id;
+        } catch (error: any) {
+            return rejectWithValue(error.message);
+        }
+    }
+)
+
+export const putTodos = createAsyncThunk<TodosType, {title: string, id: string}, {rejectValue: string}>(
+    'todos/putTodos',
+    async ({title, id} : {title: string, id: string}, {rejectWithValue})=>{
+        try {
+            const response = await putTodoApi(title,id)
+            return response
+        }
+        catch (error: any){
+            return rejectWithValue(error.message);
+        }
+    }
+)
 
 
 const todosSlice = createSlice({
@@ -42,6 +66,15 @@ const todosSlice = createSlice({
                 })
                 .addCase(postTodos.fulfilled, (state, action) => {
                     state.todos.unshift(action.payload);
+                })
+                .addCase(deleteTodos.fulfilled, (state, action) => {
+                    state.todos = state.todos.filter(todo => todo.id !== action.payload);
+                })
+                .addCase(putTodos.fulfilled, (state, action) => {
+                    const index = state.todos.findIndex(todo => todo.id === action.payload.id);
+                    if (index !== -1) {
+                        state.todos[index].title = action.payload.title;
+                    }
                 })
                 .addCase(getTodos.rejected, (_, action) => {
                     console.error("Ошибка загрузки todo:", action.payload);

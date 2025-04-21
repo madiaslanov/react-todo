@@ -1,0 +1,61 @@
+.formView{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    margin-left: 160px;
+}
+
+.formContainer{
+    width: 50%;
+    min-width: 390px;
+}
+
+.formView input{
+    width: 60%;
+    margin: 10px 0;
+    font-size: 16px;
+    border-radius: 10px;
+    padding: 10px;
+    border: none;
+}
+
+.formView textarea{
+    width: 60%;
+    font-size: 16px;
+    border-radius: 10px;
+    border: none;
+    padding: 10px;
+}
+
+.datePicker input {
+    width: 40%;
+    font-size: 16px;
+    border-radius: 10px;
+    border: none;
+    padding: 10px;
+    text-align: center;
+}
+
+.addButton{
+    padding: 10px;
+    width: 195px;
+    text-align: center;
+    font-size: 16px;
+    color: white;
+    background-color: #1976d2;
+    border: none;
+    border-radius: 10px;
+    margin-left: 140px;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+.formView h3{
+    color: red;
+    font-weight: bold;
+    font-size: 16px;
+    text-align: justify;
+    padding: 0;
+    margin-top: 0;
+}
