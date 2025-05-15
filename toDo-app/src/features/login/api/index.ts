@@ -49,3 +49,19 @@ export const loginApi = async (
     }
 };
 
+export const logOutApi = async (): Promise<void> => {
+    try {
+       const response = await fetch(`${baseUrl}/auth/login`, {
+            method: "DELETE",
+            mode: "cors",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json",
+            }
+        })
+        return await response.json();
+    }
+    catch (error : any) {
+        throw new Error(error.message);
+    }
+}

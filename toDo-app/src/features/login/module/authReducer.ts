@@ -1,6 +1,7 @@
 import {AuthState, AuthTypeResponse} from "./authType.ts";
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {getAuthApi, loginApi} from "../api";
+import {getAuthApi, loginApi, logOutApi} from "../api";
+import {TodosType} from "../../../components/homePage/module/todosType.ts";
 
 const initialState: AuthState = {
     id: null,
@@ -44,6 +45,27 @@ export const login = createAsyncThunk<
     }
 );
 
+export const logOut = createAsyncThunk<AuthState , undefined, { rejectValue: string }>(
+    "auth/logout",
+    async (_, {rejectWithValue}) => {
+        try {
+            const response = await logOutApi();
+
+            if (response.resultCode === 0) {
+                return {
+                    id: null,
+                    email: null,
+                    login: null,
+                    isAuth: false,
+                };
+            } else {
+                return rejectWithValue("Ошибка при выходе");
+            }
+        } catch (error) {
+            return rejectWithValue("Серверная ошибка при выходе");
+        }
+    })
+
 
 
 const authSlice = createSlice({
@@ -63,6 +85,11 @@ const authSlice = createSlice({
                 state.email = action.payload.data.email;
                 state.login = action.payload.data.login;
                 state.isAuth = true;
+            })
+            .addCase(logOut.fulfilled, (state,action) => {
+                state.id = action.payload.id;
+                state.email = action.payload.email;
+                state.login = action.payload.login;
             })
             .addCase(getAuth.rejected, (state)=> {
                 state.isAuth = false

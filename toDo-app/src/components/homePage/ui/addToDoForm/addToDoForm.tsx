@@ -1,25 +1,35 @@
 import { useForm } from "react-hook-form";
-
 import "react-datepicker/dist/react-datepicker.css";
 import style from "./addToDoForm.module.css";
 import {UseAppDispatch} from "../../../../services/reactHooks/hooks.ts";
 import {postTodos} from "../../module/todosReducer.ts";
+import {TodosType} from "../../module/todosType.ts";
 
 type Inputs = {
     title: string;
 };
+interface addFormProps {
+    todos: TodosType[];
+}
 
-const AddToDoForm = () => {
+const AddToDoForm: React.FC<addFormProps> = ({todos}) => {
     const {
         register,
         handleSubmit,
         formState: { errors },
+        reset,
     } = useForm<Inputs>({
     });
     const dispatch = UseAppDispatch();
 
     const onSubmit = (data: Inputs) => {
-        dispatch(postTodos(data.title))
+        if (todos.length !== 10){
+            dispatch(postTodos(data.title))
+        }
+        else{
+            console.log('Вы не можете привысить лимит 10 списков!')
+        }
+        reset();
     };
 
     return (

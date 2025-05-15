@@ -48,3 +48,8 @@ p {
     background: none;
     cursor: pointer;
 }
+
+h2:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
