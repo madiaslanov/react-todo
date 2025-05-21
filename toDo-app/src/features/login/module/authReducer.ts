@@ -1,7 +1,6 @@
 import {AuthState, AuthTypeResponse} from "./authType.ts";
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {getAuthApi, loginApi, logOutApi} from "../api";
-import {TodosType} from "../../../components/homePage/module/todosType.ts";
 
 const initialState: AuthState = {
     id: null,
@@ -13,9 +12,12 @@ const initialState: AuthState = {
 
 export const getAuth = createAsyncThunk<AuthTypeResponse, undefined, { rejectValue: string }>(
     "auth/getAuth",
-    async (_, {rejectWithValue}) => {
+    async (_, { rejectWithValue }) => {
         try {
             const response = await getAuthApi();
+            if (response.resultCode !== 0) {
+                return rejectWithValue("Not authorized");
+            }
             return response;
         } catch (error: any) {
             return rejectWithValue(error.message);
@@ -23,9 +25,10 @@ export const getAuth = createAsyncThunk<AuthTypeResponse, undefined, { rejectVal
     }
 )
 
+
 export const login = createAsyncThunk<
     AuthTypeResponse,
-    { email: string; password: string; rememberMe: boolean  },
+    { email: string; password: string; rememberMe: boolean },
     { rejectValue: string }
 >(
     "auth/login",
@@ -37,13 +40,15 @@ export const login = createAsyncThunk<
                 return rejectWithValue(loginResponse.messages[0] || "Login failed");
             }
 
-            await dispatch(getAuth());
-            return loginResponse;
+            const authData = await dispatch(getAuth()).unwrap();
+
+            return authData;
         } catch (error: any) {
             return rejectWithValue(error.message);
         }
     }
 );
+
 
 export const logOut = createAsyncThunk<AuthState , undefined, { rejectValue: string }>(
     "auth/logout",
@@ -86,16 +91,24 @@ const authSlice = createSlice({
                 state.login = action.payload.data.login;
                 state.isAuth = true;
             })
-            .addCase(logOut.fulfilled, (state,action) => {
-                state.id = action.payload.id;
-                state.email = action.payload.email;
-                state.login = action.payload.login;
+            .addCase(logOut.fulfilled, (state) => {
+                state.isAuth = false;
+                state.id = null;
+                state.email = null;
+                state.login = null;
             })
-            .addCase(getAuth.rejected, (state)=> {
-                state.isAuth = false
+            .addCase(getAuth.rejected, (state) => {
+                state.isAuth = false;
+                state.id = null;
+                state.email = null;
+                state.login = null;
             })
-            .addCase(login.rejected, (state)=> {
-                state.isAuth = false
+
+            .addCase(login.rejected, (state) => {
+                state.isAuth = false;
+                state.id = null;
+                state.email = null;
+                state.login = null;
             })
     }
 })

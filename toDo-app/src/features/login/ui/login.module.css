@@ -1,0 +1,20 @@
+.login{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+.formStyle{
+    border: 1px solid black;
+    padding: 20px;
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+    border-radius: 12px;
+}
+
+.formElem{
+    display: flex;
+    flex-direction: column;
+}
