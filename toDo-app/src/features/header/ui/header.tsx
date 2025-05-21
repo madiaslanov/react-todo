@@ -13,11 +13,11 @@ const header: FC<HeaderProps> = ({login, countOfTodo,logOutEvent}) => {
         <div>
             <div className={styles.headerBox}>
                 <h1>To Do List</h1>
-                <button onClick={logOutEvent}>Log Out</button>
+                <button onClick={logOutEvent}>Выйти</button>
             </div>
             <div className={styles.headerDescription}>
                 <p>Привет, {login}!</p>
-                <span>Количество ваших задач: {countOfTodo}</span>
+                <span>Количество ваших списков: {countOfTodo}</span>
             </div>
         </div>
     )

@@ -10,7 +10,7 @@ interface TodosProps {
     onEdit: (id: string) => void;
     editMode: string | null;
     handleTitleChange: (newTitle: string, id: string) => void;
-    onClick: ()=> void;
+    onClick: (id: string) => void;
 }
 
 const Todos: React.FC<TodosProps> = ({ todo, onDelete, onEdit, editMode, handleTitleChange, onClick }) => {
@@ -41,7 +41,7 @@ const Todos: React.FC<TodosProps> = ({ todo, onDelete, onEdit, editMode, handleT
                         onKeyDown={keyDown}
                     />
                 ) : (
-                    <h2 onClick={onClick}>{todo.title}</h2>
+                    <h2 onClick={() => onClick(todo.id)}>{todo.title}</h2>
                 )}
                 <span>{formatted}</span>
             </div>

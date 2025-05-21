@@ -22,7 +22,14 @@
 .modal_content{
     border-radius: 12px;
     padding: 20px;
-    background-color: white;
-    height: auto;
-    width: 50vw;
+    height: 40vh;
+    width: 40vw;
+    background: linear-gradient(90deg, #f6d365 0%, #fda085 100%);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.addTask{
+    margin-top: auto;
 }

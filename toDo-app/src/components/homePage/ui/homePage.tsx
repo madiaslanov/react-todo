@@ -2,8 +2,9 @@ import AddToDoForm from "./addToDoForm/addToDoForm.tsx";
 import style from "./homePage.module.css";
 import {TodosType} from "../module/todosType.ts";
 import Todos from "./todos/todos.tsx";
-import ModalWin from "../../modalWin/modalWin.tsx";
 import {useState} from "react";
+import ModalWinContainer from "../../modalWin/modalWinContainer.tsx";
+import {useLocation, useNavigate} from "react-router-dom";
 
 
 interface HomePageProps {
@@ -15,15 +16,22 @@ interface HomePageProps {
 }
 
 
+const HomePage: React.FC<HomePageProps> = ({todos, onDelete, onEdit, editMode, handleTitleChange}) => {
+    const navigate = useNavigate();
+    const location = useLocation();
+    const [modalActive, setModalActive] = useState(false);
 
-const HomePage: React.FC<HomePageProps> = ({ todos, onDelete, onEdit, editMode, handleTitleChange }) => {
-
-    const [modalActive, setModalActive]= useState(false);
+    const onClick = (id: string) => {
+        setModalActive(true);
+        navigate(`/modal/${id}`, {
+            state: {backgroundLocation: location},
+        });
+    }
 
     return (
         <div>
             <div className={style.homePage}>
-                <AddToDoForm todos={todos} />
+                <AddToDoForm todos={todos}/>
                 {todos.length > 0 ? (
                     <div className={style.todoList}>
                         {todos.map((todo) => (
@@ -34,11 +42,12 @@ const HomePage: React.FC<HomePageProps> = ({ todos, onDelete, onEdit, editMode, 
                                 onEdit={onEdit}
                                 editMode={editMode}
                                 handleTitleChange={handleTitleChange}
-                                onClick={ () =>  setModalActive(true)}
+                                onClick={onClick}
                             />
 
                         ))}
-                        <ModalWin active={modalActive} setActive={setModalActive}/>
+                        <ModalWinContainer active={modalActive} setActive={setModalActive}/>
+
                     </div>
                 ) : (
                     <p>Нету Задач</p>
@@ -47,7 +56,6 @@ const HomePage: React.FC<HomePageProps> = ({ todos, onDelete, onEdit, editMode, 
         </div>
     );
 };
-
 
 
 export default HomePage;

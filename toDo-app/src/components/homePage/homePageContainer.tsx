@@ -1,4 +1,4 @@
-import  { useState} from "react";
+import {useEffect, useState} from "react";
 import {deleteTodos, getTodos, putTodos} from "./module/todosReducer.ts";
 import HomePage from "./ui/homePage.tsx";
 import {UseAppDispatch, UseAppSelector} from "../../services/reactHooks/hooks.ts";
@@ -8,6 +8,10 @@ const HomePageContainer = () => {
     const dispatch = UseAppDispatch();
     const todoData = UseAppSelector((state) => state.todos.todos);
     const [editMode, setEditMode] = useState<string | null>(null);
+
+    useEffect(() => {
+        dispatch(getTodos());
+    }, [dispatch]);
 
     const onDelete = async (id: string) => {
         await dispatch(deleteTodos(id));
