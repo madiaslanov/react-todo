@@ -6,15 +6,87 @@
     height: 100vh;
 }
 .formStyle{
-    border: 1px solid black;
     padding: 20px;
     display: flex;
     gap: 20px;
     flex-direction: column;
     border-radius: 12px;
+    width: 20%;
+    height: 50%;
+    text-align: center;
+    background: linear-gradient(to right, #355c7d, #6c5b7b, #c06c84);
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(30px);
+    position: relative;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
 }
 
 .formElem{
     display: flex;
     flex-direction: column;
+    width: 100%;
+    text-align: start;
+}
+
+.formElem input{
+    padding: 10px;
+    border-radius: 20px;
+    border: 1px solid white;
+    background: transparent;
+    color: white;
+}
+
+.formElem input:focus{
+    outline: none;
+    color: white;
+    background: none;
+}
+.formElem input::placeholder{
+    color: white;
+}
+
+.btn{
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    background-color: #1976d2;
+    text-align: center;
+    font-size: 16px;
+    color: white;
+}
+
+.formStyle h1{
+    color: white;
+
+}
+
+.formStyle span{
+    color: red;
+    padding: 5px 1px 0 0;
+    margin: 0;
+}
+
+.formStyle p{
+    color: red;
+    padding: 5px 1px 0 0;
+    margin: 0;
+    height: 10px;
+}
+
+.formStyle h3{
+    color: white;
+    font-size: 16px;
+    font-weight: 400;
+    text-align: start;
+}
+
+.formStyle a{
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
+}
+
+.formStyle a:hover{
+    text-decoration: underline;
 }

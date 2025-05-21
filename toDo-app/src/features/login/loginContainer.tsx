@@ -8,8 +8,8 @@ const LoginContainer = () => {
     const dispatch = UseAppDispatch();
     const navigate = useNavigate();
     const isAuthData = UseAppSelector((state) => state.auth.isAuth)
-
-    const onSubmit = (data: { email: string; password: string }) => {
+    const messages = UseAppSelector((state) => state.auth.messages)
+    const onSubmit = (data: { email: string; password: string; rememberMe: boolean }) => {
         dispatch(login(data))
         navigate("/login");
     };
@@ -22,7 +22,7 @@ const LoginContainer = () => {
 
     return (
         <>
-        <Login onSubmit={onSubmit} />
+        <Login messages={messages} onSubmit={onSubmit} />
         </>
     )
 }

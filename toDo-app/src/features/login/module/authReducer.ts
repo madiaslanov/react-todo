@@ -7,6 +7,7 @@ const initialState: AuthState = {
     email: null,
     login: null,
     isAuth: false,
+    messages: []
 }
 
 
@@ -54,7 +55,7 @@ export const logOut = createAsyncThunk<AuthState , undefined, { rejectValue: str
     "auth/logout",
     async (_, {rejectWithValue}) => {
         try {
-            const response = await logOutApi();
+            const response: any = await logOutApi();
 
             if (response.resultCode === 0) {
                 return {
@@ -62,11 +63,12 @@ export const logOut = createAsyncThunk<AuthState , undefined, { rejectValue: str
                     email: null,
                     login: null,
                     isAuth: false,
+                    messages: []
                 };
             } else {
                 return rejectWithValue("Ошибка при выходе");
             }
-        } catch (error) {
+        } catch (error: any) {
             return rejectWithValue("Серверная ошибка при выходе");
         }
     })
@@ -84,12 +86,14 @@ const authSlice = createSlice({
                 state.email = action.payload.data.email;
                 state.login = action.payload.data.login;
                 state.isAuth = true;
+                state.messages = null
             })
             .addCase(login.fulfilled, (state, action) => {
                 state.id = action.payload.data.id;
                 state.email = action.payload.data.email;
                 state.login = action.payload.data.login;
                 state.isAuth = true;
+                state.messages = null
             })
             .addCase(logOut.fulfilled, (state) => {
                 state.isAuth = false;
@@ -97,21 +101,22 @@ const authSlice = createSlice({
                 state.email = null;
                 state.login = null;
             })
-            .addCase(getAuth.rejected, (state) => {
+            .addCase(getAuth.rejected, (state, action) => {
                 state.isAuth = false;
                 state.id = null;
                 state.email = null;
                 state.login = null;
+                state.messages = action.payload ? [action.payload] : ["Неизвестная ошибка"];
             })
 
-            .addCase(login.rejected, (state) => {
+            .addCase(login.rejected, (state, action) => {
                 state.isAuth = false;
                 state.id = null;
                 state.email = null;
                 state.login = null;
+                state.messages = action.payload ? [action.payload] : ["Неизвестная ошибка"];
             })
     }
 })
-
 
 export default authSlice.reducer;

@@ -3,6 +3,7 @@ export interface AuthState {
     email: string | null;
     login: string | null ;
     isAuth: boolean | null;
+    messages: string[] | null;
 }
 
 export interface AuthTypeResponse {
