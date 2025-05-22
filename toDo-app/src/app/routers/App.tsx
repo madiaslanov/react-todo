@@ -10,14 +10,16 @@ function App() {
 
     return (
             <div className={styles.content}>
-                <Routes>
-                    <Route path="/" element={<HomePageContainer/>}/>
-                    <Route path="/login" element={<LoginContainer/>}/>
-                    {state?.backgroundLocation && (
-                        <Route path="/modal/:id" element={<ModalWinContainer active={true} setActive={() => {
-                        }}/>}/>
-                    )}
+                <Routes location={state?.backgroundLocation || location}>
+                    <Route path="/" element={<HomePageContainer />} />
+                    <Route path="/login" element={<LoginContainer />} />
                 </Routes>
+
+                {state?.backgroundLocation && (
+                    <Routes>
+                        <Route path="/modal/:id" element={<ModalWinContainer />} />
+                    </Routes>
+                )}
 
             </div>
     )

@@ -11,11 +11,13 @@
     opacity: 0;
     pointer-events: none;
     transition: 0.3s;
+    visibility: hidden;
 }
 
 .modal.active {
     opacity: 1;
     pointer-events: auto;
+    visibility: visible;
 }
 
 
@@ -28,8 +30,40 @@
     position: relative;
     display: flex;
     flex-direction: column;
+    animation-duration: 0.5s;
+    animation-name: slidein;
+    scroll-behavior: smooth;
+}
+
+@keyframes slidein {
+    from {
+        margin-top: 50%;
+        width: 40vw;
+    }
+    to {
+        margin-bottom: 0;
+        width: 40vw;
+    }
 }
 
 .addTask{
     margin-top: auto;
+}
+
+.close{
+    background-image: url("../../../../public/close-116.png");
+    border: none;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 40px;
+    height: 40px;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.btnHolder{
+    right: 0;
+    display: flex;
+    justify-content: right;
 }

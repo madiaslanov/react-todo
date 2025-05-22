@@ -2,8 +2,6 @@ import AddToDoForm from "./addToDoForm/addToDoForm.tsx";
 import style from "./homePage.module.css";
 import {TodosType} from "../module/todosType.ts";
 import Todos from "./todos/todos.tsx";
-import {useState} from "react";
-import ModalWinContainer from "../../modalWin/modalWinContainer.tsx";
 import {useLocation, useNavigate} from "react-router-dom";
 
 
@@ -19,10 +17,8 @@ interface HomePageProps {
 const HomePage: React.FC<HomePageProps> = ({todos, onDelete, onEdit, editMode, handleTitleChange}) => {
     const navigate = useNavigate();
     const location = useLocation();
-    const [modalActive, setModalActive] = useState(false);
 
     const onClick = (id: string) => {
-        setModalActive(true);
         navigate(`/modal/${id}`, {
             state: {backgroundLocation: location},
         });
@@ -46,8 +42,6 @@ const HomePage: React.FC<HomePageProps> = ({todos, onDelete, onEdit, editMode, h
                             />
 
                         ))}
-                        <ModalWinContainer active={modalActive} setActive={setModalActive}/>
-
                     </div>
                 ) : (
                     <p>Нету Задач</p>

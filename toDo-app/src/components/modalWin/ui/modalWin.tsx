@@ -1,26 +1,29 @@
 import style from './modalWin.module.css'
-import {ModalWinProps} from "../modalWinContainer.tsx";
 import ModalWinAddTask from "./modalWinAddTask/modalWinAddTask.tsx";
-import {useNavigate} from "react-router-dom";
 
+interface ModalWinProps {
+    active: boolean;
+    setActive: (active: boolean) => void;
+    handleClose: () => void;
+    todoId: string;
+    onSubmit: (values: {title : string}) => void;
+}
 
-
-const ModalWin:React.FC<ModalWinProps> = ({active,setActive}) => {
-    const navigate = useNavigate();
-    const handleClose = () => {
-        setActive(false);
-        navigate(-1);
-    };
+const ModalWin:React.FC<ModalWinProps> = ({active,handleClose, todoId, onSubmit}) => {
 
     return (
-        <div className={`${style.modal} ${active ? style.active : ''}`} onClick={() => setActive(false)}>
+        <div className={`${style.modal} ${active ? style.active : ''}`}
+             onClick={handleClose}>
             <div className={style.modal_content} onClick={(e => e.stopPropagation())}>
-                <div>
-                    <button onClick={handleClose}>Закрыть</button>
+                <div className={style.btnHolder}>
+                    <button className={style.close} onClick={handleClose}></button>
+                </div>
+                <div className={style.taskBody}>
+                    <p>{todoId}</p>
                 </div>
 
                 <div className={style.addTask}>
-                    <ModalWinAddTask/>
+                    <ModalWinAddTask onSubmit={onSubmit} />
                 </div>
             </div>
         </div>

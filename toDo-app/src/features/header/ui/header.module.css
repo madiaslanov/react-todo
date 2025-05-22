@@ -22,6 +22,9 @@
   margin-top: 20px;
   margin-right: 20px;
 }
+.headerBox button:hover{
+  background-color: #0960b5;
+}
 
 .headerDescription {
   display: flex;

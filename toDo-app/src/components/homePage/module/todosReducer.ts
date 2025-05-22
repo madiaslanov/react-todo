@@ -18,7 +18,7 @@ export const getTodos = createAsyncThunk<TodosType[], void, { rejectValue: strin
     }
 )
 
-export const postTodos = createAsyncThunk<TodosType, string, { rejectValue: string }>(
+export const  postTodos = createAsyncThunk<TodosType, string, { rejectValue: string }>(
     'todos/postTodos',
     async (title, {rejectWithValue}) => {
         try {

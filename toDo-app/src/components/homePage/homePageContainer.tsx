@@ -18,7 +18,6 @@ const HomePageContainer = () => {
         dispatch(getTodos());
     };
 
-
     const onEdit = (id: string) => {
         setEditMode(id);
     };
