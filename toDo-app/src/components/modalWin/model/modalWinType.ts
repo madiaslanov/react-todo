@@ -2,17 +2,29 @@
 export interface Task{
     id: string;
     title: string;
-    completed: boolean;
+    completed?: boolean;
     todoListId: string;
-    addedDate: number;
+    description?: (string)
+    status: number;
+    priority?: (number);
+    startDate?: (number);
+    deadline?: number;
 }
 
 export interface Tasks {
     tasks: Task[];
     error: string | null;
+    isFetching: boolean;
 }
 
 export interface CreateTaskPayload {
     todolistId: string;
     title: string;
+}
+
+export interface UpdateTaskPayload {
+    todolistId : string;
+    status : number;
+    id: string;
+    task: Task;
 }

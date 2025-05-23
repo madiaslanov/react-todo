@@ -1,19 +1,20 @@
 import style from './modalWinAddTask.module.css'
-import {useForm} from "react-hook-form";
+import {FieldErrors, UseFormRegister} from "react-hook-form";
+
 
 interface ModalFormProps {
-    onSubmit: (value: { title: string }) => void;
+    onSubmit: () => void;
+    register: UseFormRegister<{ title: string }>;
+    errors: FieldErrors<{ title: string }>;
 }
 
-const ModalWinAddTask: React.FC<ModalFormProps> = ({onSubmit}) => {
-    const {register,handleSubmit, formState: {errors}} = useForm<{ title: string }>()
-
+const ModalWinAddTask: React.FC<ModalFormProps> = ({ onSubmit, register }) => {
 
 
     return (
             <>
                 <div className={style.modalForm}>
-                    <form className={style.modalFormStyle} onSubmit={handleSubmit(onSubmit)}>
+                    <form className={style.modalFormStyle} onSubmit={onSubmit}>
                         <input placeholder='Введи имя задачи' type="text" {...register('title', { required: true } )} />
                         <button type='submit'>
                             Добавить задачу

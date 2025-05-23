@@ -24,7 +24,7 @@
 .modal_content{
     border-radius: 12px;
     padding: 20px;
-    height: 40vh;
+    height: 60%;
     width: 40vw;
     background: linear-gradient(90deg, #f6d365 0%, #fda085 100%);
     position: relative;
@@ -66,4 +66,79 @@
     right: 0;
     display: flex;
     justify-content: right;
+}
+
+.taskElem{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 5px;
+
+    border-radius: 20px;
+    background-color: #d44b5d;
+    height: fit-content;
+    padding: 0 20px;
+}
+
+.taskElem.active{
+    background-color: #19d28b;
+}
+
+.taskElemLeft{
+    display: flex;
+    gap: 20px;
+    font-size: 18px;
+}
+
+.taskElem button{
+    background-image: url("../../../../public/trash.png");
+    border: none;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 20px;
+    height: 20px;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.underText{
+    font-size: 20px;
+}
+
+
+.taskElem input {
+    cursor: pointer;
+    background: none;
+}
+
+
+.taskElem input[type="checkbox"] {
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    top: 13px;
+    border: 2px solid #fff;
+    border-radius: 4px;
+    position: relative;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.taskElem input[type="checkbox"]:checked {
+    background-color: #19d28b;
+
+}
+
+.taskElem input[type="checkbox"]:checked::after {
+    content: '';
+    position: absolute;
+    left: 6px;
+
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
 }

@@ -1,10 +1,11 @@
-import {CreateTaskPayload, Task, Tasks} from "./modalWinType.ts";
+import {CreateTaskPayload, Task, Tasks, UpdateTaskPayload} from "./modalWinType.ts";
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {getTasksApi, postTasksApi} from "../api";
+import {getTasksApi, postTasksApi, updateTasksApi} from "../api";
 
 const initialState: Tasks = {
     tasks: [],
-    error: null
+    error: null,
+    isFetching: false
 }
 
 
@@ -33,6 +34,21 @@ export const postTasks = createAsyncThunk<Task, CreateTaskPayload, {rejectValue:
     }
 )
 
+export const updateTask = createAsyncThunk<Task, UpdateTaskPayload, {rejectValue: string}>(
+    'tasks/updateTask',
+    async ({todolistId,id, status, task}, {rejectWithValue}) => {
+        try{
+            const response = await updateTasksApi({todolistId,id,status, task});
+            return response;
+        }
+        catch (error : any){
+            return rejectWithValue(error.message);
+        }
+    }
+
+)
+
+
 const tasksSlice = createSlice({
     name: "tasks",
     initialState,
@@ -51,6 +67,16 @@ const tasksSlice = createSlice({
             })
             .addCase(postTasks.rejected, (state, action) => {
                 state.error = action.payload ?? 'Ошибка при посте'
+            })
+            .addCase(updateTask.fulfilled, (state, action) => {
+                state.tasks = state.tasks.map(task =>
+                    task.id === action.payload.id
+                        ? { ...task, ...action.payload }
+                        : task
+                );
+            })
+            .addCase(updateTask.rejected, (state, action) => {
+                state.error = action.payload ?? 'Ошибка обновлении'
             })
 });
 
