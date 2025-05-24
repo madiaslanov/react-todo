@@ -11,10 +11,11 @@ interface HomePageProps {
     onEdit: (id: string) => void;
     editMode: string | null;
     handleTitleChange: (newTitle: string, id: string) => void;
+    isFetching: boolean;
 }
 
 
-const HomePage: React.FC<HomePageProps> = ({todos, onDelete, onEdit, editMode, handleTitleChange}) => {
+const HomePage: React.FC<HomePageProps> = ({todos, onDelete, onEdit, editMode, handleTitleChange,isFetching}) => {
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -39,6 +40,7 @@ const HomePage: React.FC<HomePageProps> = ({todos, onDelete, onEdit, editMode, h
                                 editMode={editMode}
                                 handleTitleChange={handleTitleChange}
                                 onClick={onClick}
+                                isFetching={isFetching}
                             />
 
                         ))}

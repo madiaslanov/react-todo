@@ -38,9 +38,9 @@ const AddToDoForm: React.FC<addFormProps> = ({todos}) => {
                 <input
                     type="text"
                     placeholder="Введи название списка"
-                    {...register("title", { required: true })}
+                    {...register("title", { required: "Обязательное поле!" , maxLength: {value: 30, message: "Максимальная длина задачи!"}})}
                 />
-                {errors.title && <h3>Ошибка, пустое поле!</h3>}
+                {errors.title && <h3>{errors.title.message}</h3>}
                 <button className={style.addButton} type="submit">
                     Создать Список
                 </button>

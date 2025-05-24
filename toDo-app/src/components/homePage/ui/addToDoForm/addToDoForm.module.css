@@ -1,27 +1,31 @@
 .formView{
     display: flex;
     flex-direction: column;
-    justify-content: center;
     width: 100%;
-    margin-left: 160px;
+    justify-content: center;
+    align-items: center;
 }
 
 .formContainer{
-    width: 50%;
-    min-width: 390px;
+    width: 30%;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    display: flex;
 }
 
 .formView input{
-    width: 60%;
+    width: 100%;
     margin: 10px 0;
     font-size: 16px;
     border-radius: 10px;
     padding: 10px;
     border: none;
+
 }
 
 .formView textarea{
-    width: 60%;
+    width: 100%;
     font-size: 16px;
     border-radius: 10px;
     border: none;
@@ -46,7 +50,6 @@
     background-color: #1976d2;
     border: none;
     border-radius: 10px;
-    margin-left: 140px;
     margin-top: 20px;
     cursor: pointer;
 }

@@ -3,7 +3,8 @@ import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {deleteTodoApi, getTodosApi, postTodosApi, putTodoApi} from "../api";
 
 const initialState: TodoState = {
-    todos: []
+    todos: [],
+    isFetching: false
 }
 
 export const getTodos = createAsyncThunk<TodosType[], void, { rejectValue: string }>(
@@ -18,7 +19,7 @@ export const getTodos = createAsyncThunk<TodosType[], void, { rejectValue: strin
     }
 )
 
-export const  postTodos = createAsyncThunk<TodosType, string, { rejectValue: string }>(
+export const postTodos = createAsyncThunk<TodosType, string, { rejectValue: string }>(
     'todos/postTodos',
     async (title, {rejectWithValue}) => {
         try {
@@ -41,14 +42,13 @@ export const deleteTodos = createAsyncThunk<string, string, { rejectValue: strin
     }
 )
 
-export const putTodos = createAsyncThunk<TodosType, {title: string, id: string}, {rejectValue: string}>(
+export const putTodos = createAsyncThunk<TodosType, { title: string, id: string }, { rejectValue: string }>(
     'todos/putTodos',
-    async ({title, id} : {title: string, id: string}, {rejectWithValue})=>{
+    async ({title, id}: { title: string, id: string }, {rejectWithValue}) => {
         try {
-            const response = await putTodoApi(title,id)
+            const response = await putTodoApi(title, id)
             return response
-        }
-        catch (error: any){
+        } catch (error: any) {
             return rejectWithValue(error.message);
         }
     }
@@ -63,25 +63,52 @@ const todosSlice = createSlice({
             builder
                 .addCase(getTodos.fulfilled, (state, action) => {
                     state.todos = action.payload
+                    state.isFetching = false
+                })
+                .addCase(getTodos.pending, (state) => {
+                    state.isFetching = true
+                })
+                .addCase(getTodos.rejected, (state, action) => {
+                    state.isFetching = false
+                    console.error("Ошибка загрузки todo:", action.payload);
                 })
                 .addCase(postTodos.fulfilled, (state, action) => {
                     state.todos.unshift(action.payload);
+                    state.isFetching = false;
                 })
-                .addCase(deleteTodos.fulfilled, (state, action) => {
-                    state.todos = state.todos.filter(todo => todo.id !== action.payload);
+                .addCase(postTodos.pending, (state) => {
+                    state.isFetching = true
                 })
+                .addCase(postTodos.rejected, (state, action) => {
+                    console.error("Ошибка добавления todo:", action.payload);
+                    state.isFetching = false;
+                })
+
                 .addCase(putTodos.fulfilled, (state, action) => {
+                    state.isFetching = false;
                     const index = state.todos.findIndex(todo => todo.id === action.payload.id);
                     if (index !== -1) {
                         state.todos[index].title = action.payload.title;
                     }
                 })
-                .addCase(getTodos.rejected, (_, action) => {
-                    console.error("Ошибка загрузки todo:", action.payload);
+                .addCase(putTodos.pending, (state) => {
+                    state.isFetching = true
                 })
-                .addCase(postTodos.rejected, (_, action) => {
-                    console.error("Ошибка добавления todo:", action.payload);
-                });
+                .addCase(putTodos.rejected, (state, action) => {
+                    state.isFetching = false
+                    console.error("Error:", action.payload)
+                })
+                .addCase(deleteTodos.fulfilled, (state, action) => {
+                    state.todos = state.todos.filter(todo => todo.id !== action.payload);
+                    state.isFetching = false
+                })
+                .addCase(deleteTodos.rejected, (state, action) => {
+                    state.isFetching = false
+                    console.error("Error delete:", action.payload)
+                })
+                .addCase(deleteTodos.pending, (state) => {
+                    state.isFetching = true
+                })
         }
     }
 )

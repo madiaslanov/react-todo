@@ -2,7 +2,7 @@ import ModalWin from "./ui/modalWin.tsx";
 import { useNavigate, useParams } from "react-router-dom";
 import {useEffect, useState} from "react";
 import {UseAppDispatch, UseAppSelector} from "../../services/reactHooks/hooks.ts";
-import {getTasks, postTasks, updateTask} from "./model/modalWinReducer.ts";
+import {deleteTasks, getTasks, postTasks, updateTask} from "./model/modalWinReducer.ts";
 import {useForm} from "react-hook-form";
 
 const ModalWinContainer: React.FC = () => {
@@ -12,7 +12,7 @@ const ModalWinContainer: React.FC = () => {
     const dispatch = UseAppDispatch();
     const taskList = UseAppSelector( (state) => state.tasks.tasks ?? [])
     const {register,handleSubmit, formState: {errors}, reset} = useForm<{ title: string }>()
-
+    const isFetching = UseAppSelector((state)=> state.tasks.isFetching)
 
     const handleClose = () => {
         setActive(false);
@@ -49,6 +49,10 @@ const ModalWinContainer: React.FC = () => {
         }
     };
 
+    const onDelete = ({ todolistId, taskId }: { todolistId: string; taskId: string }) => {
+        dispatch(deleteTasks({todolistId, id: taskId}));
+    }
+
 
     if (!id) return null;
 
@@ -63,6 +67,8 @@ const ModalWinContainer: React.FC = () => {
             errors={errors}
             taskList={taskList}
             completedTask={completedTask}
+            onDelete={onDelete}
+            isFetching={isFetching}
         />
     );
 };

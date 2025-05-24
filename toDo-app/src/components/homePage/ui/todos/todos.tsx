@@ -11,9 +11,10 @@ interface TodosProps {
     editMode: string | null;
     handleTitleChange: (newTitle: string, id: string) => void;
     onClick: (id: string) => void;
+    isFetching: boolean;
 }
 
-const Todos: React.FC<TodosProps> = ({ todo, onDelete, onEdit, editMode, handleTitleChange, onClick }) => {
+const Todos: React.FC<TodosProps> = ({ todo, onDelete, onEdit, editMode, handleTitleChange, onClick , isFetching}) => {
     const [newTitle, setNewTitle] = useState(todo.title);
     const rawDate = todo.addedDate;
     const formatted = dayjs(rawDate).format('DD.MM.YYYY HH:mm');
@@ -39,6 +40,7 @@ const Todos: React.FC<TodosProps> = ({ todo, onDelete, onEdit, editMode, handleT
                         value={newTitle}
                         onChange={handleTitleInputChange}
                         onKeyDown={keyDown}
+                        disabled={isFetching}
                     />
                 ) : (
                     <h2 onClick={() => onClick(todo.id)}>{todo.title}</h2>
@@ -46,11 +48,11 @@ const Todos: React.FC<TodosProps> = ({ todo, onDelete, onEdit, editMode, handleT
                 <span>{formatted}</span>
             </div>
             <div className={style.rightSide}>
-                <button onClick={() => onDelete(todo.id)}><i className="bx bx-trash"></i></button>
+                <button disabled={isFetching} onClick={() => onDelete(todo.id)}><i className="bx bx-trash"></i></button>
                 {editMode === todo.id ? (
-                    <button onClick={handleSave}><i className="bx bx-save"></i></button>
+                    <button onClick={handleSave} disabled={isFetching}><i className="bx bx-save"></i></button>
                 ) : (
-                    <button onClick={() => onEdit(todo.id)}><i className="bx bx-edit"></i></button>
+                    <button onClick={() => onEdit(todo.id)} disabled={isFetching}><i className="bx bx-edit"></i></button>
                 )}
             </div>
         </div>

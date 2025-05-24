@@ -18,9 +18,25 @@ interface ModalWinProps {
         taskId: string;
         completed: boolean;
     }) => void;
+    onDelete: (args: {
+        todolistId: string
+        taskId: string;
+    }) => void;
+    isFetching: boolean;
 }
 
-const ModalWin: React.FC<ModalWinProps> = ({active, handleClose, onSubmit, register, errors, taskList, completedTask, todoId}) => {
+const ModalWin: React.FC<ModalWinProps> = ({
+                                               active,
+                                               handleClose,
+                                               onSubmit,
+                                               register,
+                                               errors,
+                                               taskList,
+                                               completedTask,
+                                               todoId,
+                                               onDelete,
+                                               isFetching
+                                           }) => {
     return (
         <div className={`${style.modal} ${active ? style.active : ''}`}
              onClick={handleClose}>
@@ -35,20 +51,21 @@ const ModalWin: React.FC<ModalWinProps> = ({active, handleClose, onSubmit, regis
                                 <div className={style.taskElemLeft}>
                                     <input
                                         type="checkbox"
-                                        checked={task.completed}
+                                        checked={task.status === 2}
                                         onChange={() => completedTask({
                                             todolistId: todoId!,
                                             taskId: task.id,
-                                            completed: !task.completed
+                                            completed: task.status !== 2
                                         })}
+                                        disabled={isFetching}
                                     />
                                     <p>{task.title}</p>
                                 </div>
-                                <button></button>
+                                <button onClick={() => onDelete({todolistId: todoId!, taskId: task.id})} disabled={isFetching}></button>
                             </div>
                         ))
                     ) : (
-                        <p>Задачи отсутствуют</p>
+                        <p className={style.nullTask}>Задачи отсутствуют</p>
                     )}
                 </div>
 

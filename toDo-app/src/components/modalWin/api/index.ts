@@ -90,3 +90,26 @@ export const updateTasksApi = async ({ status, todolistId, id, task }: {
         throw error;
     }
 }
+
+
+export const deleteTasksApi = async ({id, todolistId}: {id: string; todolistId: string}): Promise<void> => {
+    try {
+        const response = await fetch(`${baseUrl}/todo-lists/${todolistId}/tasks/${id}`,
+            {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    "API-KEY": "115035e9-7031-4bfd-9b30-39b2a23ede3b"
+                },
+                credentials: "include"
+            }
+            );
+        if (!response.ok) {
+            throw new Error(`Ошибка: ${response.status}`);
+        }
+    }
+    catch (error) {
+        console.error(error);
+    }
+}

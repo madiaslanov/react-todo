@@ -1,17 +1,17 @@
-.headerBox{
+.headerBox {
   display: flex;
-  flex-direction: row;
   align-items: center;
+  position: relative;
+  padding: 0 20px;
 }
 
-.headerBox h1{
+.headerBox h1 {
   font-family: "Anton", sans-serif;
   font-size: 35px;
-  margin: 10px auto auto;
+  margin: 0 auto;
   padding-top: 20px;
 }
-
-.headerBox button{
+.headerBox button {
   background-color: #1976d2;
   border: none;
   border-radius: 6px;
@@ -20,7 +20,8 @@
   padding: 10px 15px;
   font-size: 18px;
   margin-top: 20px;
-  margin-right: 20px;
+  position: absolute;
+  right: 20px;
 }
 .headerBox button:hover{
   background-color: #0960b5;
@@ -31,7 +32,6 @@
   flex-direction: column;
   align-items: center;
   padding: 0;
-  margin-right: 111px;
 }
 .headerDescription p{
   font-size: 20px;

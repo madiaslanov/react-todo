@@ -3,7 +3,7 @@ export interface Task{
     id: string;
     title: string;
     completed?: boolean;
-    todoListId: string;
+    todolistId: string;
     description?: (string)
     status: number;
     priority?: (number);

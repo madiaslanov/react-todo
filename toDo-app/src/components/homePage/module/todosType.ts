@@ -8,4 +8,5 @@ export interface TodosType {
 
 export interface TodoState {
     todos: TodosType[];
+    isFetching: boolean;
 }

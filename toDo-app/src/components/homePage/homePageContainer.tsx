@@ -8,7 +8,7 @@ const HomePageContainer = () => {
     const dispatch = UseAppDispatch();
     const todoData = UseAppSelector((state) => state.todos.todos);
     const [editMode, setEditMode] = useState<string | null>(null);
-
+    const isFetching = UseAppSelector((state)=> state.todos.isFetching)
     useEffect(() => {
         dispatch(getTodos());
     }, [dispatch]);
@@ -40,6 +40,7 @@ const HomePageContainer = () => {
                 onEdit={onEdit}
                 editMode={editMode}
                 handleTitleChange={handleTitleChange}
+                isFetching={isFetching}
             />
         </div>
     );

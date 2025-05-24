@@ -8,6 +8,7 @@
     background: radial-gradient(circle, rgba(238, 174, 202, 1) 0%, rgba(148, 187, 233, 1) 100%);
     display: flex;
     align-items: center;
+    min-width: 0;
 }
 
 p {
@@ -18,24 +19,32 @@ p {
     margin: 0 0 25px 0;
 }
 
-.todoItem h2{
+.todoItem h2 {
     color: black;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+    text-align: center;
+    max-width: 100%;
 }
 
-.leftSide{
-    width: 100%;
-    flex-direction: column;
+.leftSide {
+    flex: 1;
     display: flex;
+    flex-direction: column;
+    overflow: hidden;
 }
 .leftSide input{
     width: 50%;
     align-self: center;
     margin-bottom: 10px;
 }
-.rightSide{
-    width: 10%;
+.rightSide {
+    flex-shrink: 0;
+    width: auto;
     display: flex;
     flex-direction: column;
+    align-items: flex-end;
 }
 
 .rightSide i{

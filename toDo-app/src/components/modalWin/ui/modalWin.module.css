@@ -119,7 +119,7 @@
     -webkit-appearance: none;
     width: 20px;
     height: 20px;
-    top: 13px;
+    top: 16px;
     border: 2px solid #fff;
     border-radius: 4px;
     position: relative;
@@ -135,10 +135,17 @@
     content: '';
     position: absolute;
     left: 6px;
-
     width: 5px;
     height: 10px;
     border: solid white;
     border-width: 0 2px 2px 0;
     transform: rotate(45deg);
+}
+
+.nullTask{
+    text-align: center;
+    font-size: 25px;
+}
+.taskElem p{
+    font-size: 18px;
 }
