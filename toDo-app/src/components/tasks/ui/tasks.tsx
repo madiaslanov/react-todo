@@ -24,7 +24,7 @@ const Tasks = () => {
     });
     const dispatch = UseAppDispatch();
 
-    const onSubmit = (data: Inputs) => {
+    const onSubmit = (data: any) => {
         dispatch(postTodos(data))
     };
 
