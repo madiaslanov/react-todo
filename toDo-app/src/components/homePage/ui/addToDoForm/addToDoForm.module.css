@@ -65,3 +65,22 @@
     padding: 0;
     margin-top: 0;
 }
+
+@media (max-width: 500px) {
+    .formContainer{
+        width: 70%;
+    }
+    .formContainer input{
+        font-size: 14px;
+    }
+    .addButton{
+        width: 90%;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 1100px) {
+    .formContainer{
+        width: 60%;
+    }
+}

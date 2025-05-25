@@ -49,3 +49,20 @@
 .modalFormStyle button:hover{
     background-color: #0960b5;
 }
+
+
+@media (max-width: 1450px) {
+    .modalForm button{
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 1300px) {
+    .modalForm button{
+        font-size: 11px;
+    }
+    .modalForm input{
+        font-size: 12px;
+    }
+}
+

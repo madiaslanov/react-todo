@@ -90,3 +90,31 @@
 .formStyle a:hover{
     text-decoration: underline;
 }
+
+
+@media (max-width: 500px) {
+    .formStyle{
+        width: 100%;
+    }
+}
+
+@media (max-width: 800px) and (min-height: 800px){
+    .formStyle{
+        width: 70%;
+        height: 50%;
+    }
+}
+
+@media (max-width: 800px) and (min-height: 1000px){
+    .formStyle{
+        width: 70%;
+        height: 45%;
+    }
+}
+
+@media (min-width: 1000px) and (max-width: 1400px) {
+    .formStyle{
+        width: 70%;
+        height: 60%;
+    }
+}

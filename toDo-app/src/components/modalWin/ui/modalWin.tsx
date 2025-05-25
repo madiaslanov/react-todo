@@ -45,7 +45,9 @@ const ModalWin: React.FC<ModalWinProps> = ({
                     <button className={style.close} onClick={handleClose}></button>
                 </div>
                 <div className={style.taskBody}>
-                    {taskList && taskList.length > 0 ? (
+                    {isFetching ? (
+                        <img src='/load.gif' alt="Loading..." />
+                    ) : taskList.length > 0 ? (
                         taskList.map((task: Task) => (
                             <div className={`${style.taskElem} ${task.status ? style.active : ''}`} key={task.id}>
                                 <div className={style.taskElemLeft}>
@@ -61,7 +63,10 @@ const ModalWin: React.FC<ModalWinProps> = ({
                                     />
                                     <p>{task.title}</p>
                                 </div>
-                                <button onClick={() => onDelete({todolistId: todoId!, taskId: task.id})} disabled={isFetching}></button>
+                                <button
+                                    onClick={() => onDelete({ todolistId: todoId!, taskId: task.id })}
+                                    disabled={isFetching}
+                                ></button>
                             </div>
                         ))
                     ) : (

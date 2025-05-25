@@ -62,3 +62,15 @@ h2:hover{
     text-decoration: underline;
     cursor: pointer;
 }
+
+@media (max-width: 900px) {
+    .todoItem{
+        width: 80%;
+    }
+}
+
+@media (min-width: 750px) {
+    .todoItem{
+        width: 80%;
+    }
+}
